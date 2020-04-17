@@ -11,7 +11,8 @@
 #tomato {
   font-size: 50px;
   position: relative;
-  bottom: 7px;
+  bottom: 5px;
+  background:transparent;
 }
 
 #countdown {

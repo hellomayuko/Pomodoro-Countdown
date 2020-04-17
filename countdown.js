@@ -1,14 +1,26 @@
-let interval;
-let isPaused = true;
-let countdownWasStarted = false;
-let timeLeftInSeconds = 0;
-
 const secondsInaMinute = 60;
 const minutes_25 = secondsInaMinute * 25;
 const minutes_50 = secondsInaMinute * 50;
 const seconds_10 = 10; //for testing
 
+let interval;
+let isPaused = true;
+let countdownWasStarted = false;
+let pomodoroDuration = minutes_50; //by default
+let timeLeftInSeconds = 0;
+
 // Button Handlers
+function updateDuration() {
+  if(pomodoroDuration == minutes_50 ) {
+    pomodoroDuration = minutes_25;
+  } else {
+    pomodoroDuration = minutes_50;
+  }
+
+  timeLeftInSeconds = pomodoroDuration
+  updateTimeString()
+}
+
 function playPauseCountdown() {
   isPaused = !isPaused
 
@@ -66,8 +78,7 @@ function stopCountdown() {
 
 function resetCountdown() {
   isPaused = false
-  timeLeftInSeconds = minutes_50
-  // timeLeftInSeconds = seconds_10;
+  timeLeftInSeconds = pomodoroDuration
 }
 
 // View Updates
