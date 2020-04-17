@@ -11,6 +11,7 @@ let timeLeftInSeconds = 0;
 
 // Button Handlers
 function updateDuration() {
+  //The pomodoro duration is by default 50, but we can change to 25!
   if(pomodoroDuration == minutes_50 ) {
     pomodoroDuration = minutes_25;
   } else {
@@ -27,6 +28,8 @@ function playPauseCountdown() {
   updatePlayPauseButton();
 
   if(!countdownWasStarted) {
+    //This function could be called after initiating the timer,
+    //so we need to differentiate when its start vs pause vs resume
     resetCountdown()
     updateTimeString()
   }
@@ -42,6 +45,7 @@ function playPauseCountdown() {
 }
 
 function restartCountdown() {
+  //When we reset the countdown, stop the interval and reset things back to normal
   stopCountdown()
   resetCountdown()
 
