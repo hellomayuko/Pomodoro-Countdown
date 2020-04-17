@@ -6,6 +6,7 @@ let timeLeftInSeconds = 0;
 const secondsInaMinute = 60;
 const minutes_25 = secondsInaMinute * 25;
 const minutes_50 = secondsInaMinute * 50;
+const seconds_10 = 10; //for testing
 
 // Button Handlers
 function playPauseCountdown() {
@@ -48,7 +49,10 @@ function updateCountdown() {
   updateTimeString();
 
   if(timeLeftInSeconds == 0) {
-    playYoScott();
+    playYoScott()
+    stopCountdown()
+    isPaused = true
+    updatePlayPauseButton()
   }
 }
 
@@ -63,6 +67,7 @@ function stopCountdown() {
 function resetCountdown() {
   isPaused = false
   timeLeftInSeconds = minutes_50
+  // timeLeftInSeconds = seconds_10;
 }
 
 // View Updates
@@ -94,5 +99,5 @@ function playYoScott() {
   var yoScottAudio = document.getElementById("yoScottAudio");
   yoScottAudio.play();
 
-  document.getElementById("countdown").innerHTML = "YO SCOTT";
+  document.getElementById("countdown").innerHTML = "YOO";
 }
