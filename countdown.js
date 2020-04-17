@@ -1,11 +1,72 @@
 let interval;
-let countdownDate;
 let isPaused = true;
-let countdownDidStart = false;
+let countdownWasStarted = false;
+let timeLeftInSeconds = 0;
 
+const secondsInaMinute = 60;
+const minutes_25 = secondsInaMinute * 25;
+const minutes_50 = secondsInaMinute * 50;
+
+// Button Handlers
 function playPauseCountdown() {
   isPaused = !isPaused
-  
+
+  updatePlayPauseButton();
+
+  if(!countdownWasStarted) {
+    resetCountdown()
+    updateTimeString()
+  }
+
+  countdownWasStarted = true
+
+  if(isPaused) {
+    stopCountdown()
+  } else {
+    // Update the count down every 1 second
+    interval = setInterval(updateCountdown, 1000);
+  }
+}
+
+function restartCountdown() {
+  stopCountdown()
+  resetCountdown()
+
+  isPaused = true
+  updatePlayPauseButton()
+  updateTimeString()
+}
+
+// Biz Logic
+function updateCountdown() {
+  if(isPaused) {
+    return
+  }
+
+  timeLeftInSeconds--;
+
+  updateTimeString();
+
+  if(timeLeftInSeconds == 0) {
+    playYoScott();
+  }
+}
+
+function pauseCountdown() {
+  isPaused = !isPaused;
+}
+
+function stopCountdown() {
+  clearInterval(interval)
+}
+
+function resetCountdown() {
+  isPaused = false
+  timeLeftInSeconds = minutes_50
+}
+
+// View Updates
+function updatePlayPauseButton() {
   let playPauseImageSrc;
   if(isPaused) {
     playPauseImageSrc = "playButton4x.png"
@@ -13,76 +74,25 @@ function playPauseCountdown() {
     playPauseImageSrc = "pauseButton4x.png"
   }
   document.getElementById("playPause").src = playPauseImageSrc;
-
-  if(!countdownDidStart) {
-    document.getElementById("countdown").innerHTML = "25:00";
-    countDownDate = new Date();
-    countDownDate.setMinutes(countDownDate.getMinutes()+25);
-  }
-
-  countdownDidStart = true
-
-  // Update the count down every 1 second
-  interval = setInterval(updateCountdown, 1000);
 }
 
-/**
- * TODO for next time:
- * 
- * The pause logic is buggy as heck, maybe instead of relying on dates to do the calculation,
- * just use an integer. updateCountdown() gets called every second, so we could decrement the
- * counter every time this function is called to make the math simpler. And when we're paused,
- * just don't do anything.
- */
-function updateCountdown() {
-  if(isPaused) {
-    countDownDate.setSeconds(countDownDate.getSeconds() + 1)
-    return
-  }
+function updateTimeString() {
+  let minutes = Math.floor(timeLeftInSeconds / secondsInaMinute);
+  let seconds = timeLeftInSeconds % secondsInaMinute;
 
-  // Get today's date and time
-  let now = new Date().getTime();
-
-  // Find the distance between now and the count down date
-  let distance = countDownDate - now;
-
-  // Time calculations for days, hours, minutes and seconds
-  let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-  let secondsString = seconds;
   if(seconds < 10) {
-    secondsString = "0" + seconds;
+    secondsString = "0" + seconds
+  } else {
+    secondsString = seconds
   }
 
   // Output the result in an element with id="demo"
   document.getElementById("countdown").innerHTML = minutes + ":" + secondsString;
-
-  // If the count down is over, write some text
-  if (distance < 0) {
-    clearInterval(interval);
-    var yoScottAudio = document.getElementById("yoScottAudio");
-    yoScottAudio.play();
-
-    document.getElementById("countdown").innerHTML = "YO SCOTT";
-  }
 }
 
-function pauseCountdown() {
-  if(isPaused) {
-    //Current state: Resume
-    isPaused = false
-    document.getElementById("pauseButton").innerHTML = "Pause"
-  } else {
-    //Current state: Pause
-    isPaused = true
-    document.getElementById("pauseButton").innerHTML = "Resume"
-  }
-}
+function playYoScott() {
+  var yoScottAudio = document.getElementById("yoScottAudio");
+  yoScottAudio.play();
 
-function resetCountdown() {
-  isPaused = false
-  clearInterval(interval);
-  document.getElementById("countdown").innerHTML = "00:00";
-  document.getElementById("pauseButton").innerHTML = "Pause"
+  document.getElementById("countdown").innerHTML = "YO SCOTT";
 }
