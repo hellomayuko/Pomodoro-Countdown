@@ -1,0 +1,46 @@
+.container {
+  background-color: #355068;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  height:75px;
+  width:360px;
+  border:8px solid #d5d5ce;
+}
+
+#tomato {
+  font-size: 50px;
+  position: relative;
+  bottom: 7px;
+}
+
+#countdown {
+  text-align: center;
+  font-size: 50px;
+  font-family: "Glacial Indifference";
+  font-weight: 600;
+  color: white;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+button {
+  background-color: #355068;
+  border: 0;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.imageContainer {
+  height: 40px;
+  width: 40px;
+}
+
+.imageContainer img {
+  width:auto;
+  height:100%;
+}
+
+#resetButton {
+  margin-right: 15px;
+}

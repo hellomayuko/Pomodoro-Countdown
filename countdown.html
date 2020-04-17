@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+  <script src="countdown.js"></script>
+
+  <div class="container">
+    <div id="tomato">🍅</div>
+    <div id="countdown">25:00</div>
+    
+    <div class="buttons">
+      <button type="button" onclick="playPauseCountdown()">
+        <div class="imageContainer">
+          <img id="playPause" src="playButton4x.png">
+        </div>
+      </button>
+      <button type="button" onclick="resetCountdown()">
+        <div class="imageContainer" id="resetButton">
+          <img src="resetButton4x.png">
+        </div>
+      </button>
+    </div>
+
+    <audio id="yoScottAudio">
+      <source src="YoScott.m4a" type="audio/mpeg">
+    </audio>
+  </div>
+</body>
+</html>
