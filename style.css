@@ -30,6 +30,7 @@ button {
   border: 0;
   padding-left: 0px;
   padding-right: 0px;
+  outline: 0;
 }
 
 .imageContainer {
